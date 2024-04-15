@@ -30,12 +30,12 @@ public class Book extends GenericDomain<Integer> {
 
 
     @Column(name = "ISBN")
-    private Boolean ISBN;
+    private String ISBN;
 
     public Book() {
     }
 
-    public Book(@NotNull @Size(min = 5, max = 30) String title, @NotNull @Size(min = 5, max = 30) String author, @NotNull @Min(1950) Integer publicationDate, Boolean ISBN) {
+    public Book(@NotNull @Size(min = 5, max = 30) String title, @NotNull @Size(min = 5, max = 30) String author, @NotNull @Min(1950) Integer publicationDate, String ISBN) {
         this.title = title;
         this.author = author;
         this.publicationDate = publicationDate;
@@ -66,11 +66,11 @@ public class Book extends GenericDomain<Integer> {
         this.publicationDate = publicationDate;
     }
 
-    public Boolean getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(Boolean ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 }

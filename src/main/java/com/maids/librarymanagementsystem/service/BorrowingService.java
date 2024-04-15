@@ -19,19 +19,29 @@ public class BorrowingService extends GenericService<BorrowingDao, Borrowing, In
         this.patronService = patronService;
         this.borrowingDao = borrowingDao;
     }
+
     @Transactional
     public Borrowing insert(Integer bookId, Integer patronId) throws Exception {
         Book book = bookService.getById(bookId);
         Patron patron = patronService.getById(patronId);
-        Borrowing borrowing = new Borrowing(book, patron);
+        Borrowing borrowing = borrowingDao.findBorrowingByBookId(bookId);
+        if (!validateBorrowing(borrowing))
+            throw new Exception("This Book is not available");
+        borrowing = new Borrowing(book, patron, "Borrowing");
         return super.insert(borrowing);
     }
+
     @Transactional
     public Borrowing update(Integer bookId, Integer patronId) throws Exception {
         Book book = bookService.getById(bookId);
         Patron patron = patronService.getById(patronId);
-        Borrowing borrowing = new Borrowing(book, patron);
+        Borrowing borrowing = new Borrowing(book, patron, "Returned");
         return borrowingDao.save(borrowing);
     }
 
+    public Boolean validateBorrowing(Borrowing borrowing) {
+        if (borrowing != null && borrowing.getStatus().equals("Borrowing"))
+            return false;
+            return true;
+    }
 }

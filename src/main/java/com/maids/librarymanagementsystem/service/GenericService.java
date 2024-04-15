@@ -14,8 +14,8 @@ import java.util.*;
 public abstract class GenericService<Dao extends GenericDao, Domain extends GenericDomain, IdClass> {
     @Autowired
     protected Dao dao;
-    @Autowired
-    protected PaginationService paginationService;
+//    @Autowired
+//    protected PaginationService paginationService;
 
     @Log(actionType = ActionType.ADD)
     public Domain insert(Domain domain) throws Exception {
